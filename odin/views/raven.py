@@ -224,9 +224,6 @@ def add_results(request):
     :param request:
     :return:
     """
-    herp = request.POST.dict_of_lists()
-    print(herp)
-
     if set(['cuid', 'key', 'tuid', 'data']).issubset(request.POST.keys()):
         cuid = request.POST['cuid']
         key = request.POST['key']
