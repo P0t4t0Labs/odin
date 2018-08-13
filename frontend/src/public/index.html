@@ -1,17 +1,13 @@
 <!doctype html>
-<html lang="{{request.locale_name}}" ng-app="odin">
+<html lang="en" ng-app="odin">
 <head>
   <!-- This file is only a mock and not used directly as we use Pyramid's jinja template system-->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title ng-bind="$root.pageTitle || 'Odin'">Odin</title>
-  <!-- Custom styles for this scaffold -->
-  <link href="{{request.static_url('odin:static/theme.css')}}" rel="stylesheet">
 </head>
 <body>
-  {% block content %}
-  <p>No content</p>
-  {% endblock content %}
+  <ui-view></ui-view>
 </body>
 </html>
