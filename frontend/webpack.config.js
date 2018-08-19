@@ -6,6 +6,7 @@ var autoprefixer = require('autoprefixer');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
+var path = require('path');
 
 /**
  * Env
@@ -16,12 +17,12 @@ var isTest = ENV === 'test' || ENV === 'test-watch';
 var isProd = ENV === 'build';
 
 const extractCss = new ExtractTextPlugin({
-  filename: 'css/[name].css',
+  filename: 'css/[name]-[hash].css',
   disable: !isProd,
   allChunks: true
 });
 const extractSass = new ExtractTextPlugin({
-  filename: 'css/[name]-sass.css',
+  filename: 'css/[name]-sass-[hash].css',
   disable: !isProd,
   allChunks: true
 });
@@ -56,14 +57,12 @@ module.exports = function makeWebpackConfig() {
 
     // Output path from the view of the page
     // Uses webpack-dev-server in development
-    publicPath: isProd ? '/' : 'http://0.0.0.0:8080/',
+    publicPath: isProd ? '/' : 'http://localhost:8080/',
 
     // Filename for entry points
-    // Only adds hash in build mode
     filename: isProd ? '[name].[hash].js' : '[name].bundle.js',
 
     // Filename for non-entry points
-    // Only adds hash in build mode
     chunkFilename: isProd ? '[name].[hash].js' : '[name].bundle.js'
   };
 
@@ -128,14 +127,26 @@ module.exports = function makeWebpackConfig() {
         use: ['css-loader', 'postcss-loader', 'sass-loader']
       })
     }, {
-      // ASSET LOADER
+      // FONT LOADER
+      test: /.(ttf|otf|eot|svg|woff(2)?)(\?[a-z0-9]+)?$/,
+      use: [{
+        loader: 'file-loader',
+        options: {
+          name: 'fonts/[name].[ext]'
+        }
+      }]
+    }, {
+      // IMG LOADER
       // Reference: https://github.com/webpack/file-loader
-      // Copy png, jpg, jpeg, gif, svg, woff, woff2, ttf, eot files to output
+      // Copy png, jpg, jpeg, gif, svg files to output
       // Rename the file using the asset hash
       // Pass along the updated reference to your code
       // You can add here any file extension you want to get copied to your output
-      test: /\.(png|jpg|jpeg|gif|svg|woff|woff2|ttf|eot)$/,
-      loader: 'file-loader'
+      test: /\.(png|jpg|jpeg|gif|svg)$/,
+      loader: 'file-loader',
+      options: {
+        name: 'img/[name].[ext]'
+      }
     }, {
       // HTML LOADER
       // Reference: https://github.com/webpack/raw-loader
@@ -186,11 +197,6 @@ module.exports = function makeWebpackConfig() {
         }
       }
     }),
-
-    // These will automatically be available in every module
-    new webpack.ProvidePlugin({
-      firebase: 'firebase',
-    })
   ];
 
   config.externals = [
@@ -242,7 +248,10 @@ module.exports = function makeWebpackConfig() {
   config.devServer = {
     contentBase: './src/public',
     stats: 'minimal',
-    host: '0.0.0.0'
+    host: 'localhost',
+    proxy: {
+      '/api': 'http://localhost:6543'
+    }
   };
 
   //config.devServer = {

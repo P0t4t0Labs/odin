@@ -1,0 +1,35 @@
+<nav class="navbar is-fixed-top is-primary" role="navigation" aria-label="main navigation">
+  <div class="container">
+    <div class="navbar-brand">
+      <a class="navbar-item" ui-sref="home">
+      <span class="icon">
+        <i class="fas fa-project-diagram"></i>
+      </span>
+        <span>Odin</span>
+      </a>
+      <a role="button" class="navbar-burger" ng-class="{'is-active': $root.navOpen}"
+         ng-click="$root.navOpen = !$root.navOpen">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+    <div class="navbar-menu" ng-class="{'is-active': $root.navOpen}">
+      <div class="navbar-start">
+        <!-- navbar items -->
+      </div>
+
+      <div class="navbar-end">
+
+        <a class="navbar-item" ui-sref="clientList" ui-sref-active="is-active">
+          Clients
+        </a>
+
+        <a class="navbar-item">Test</a>
+
+        <a class="navbar-item">Test</a>
+
+      </div>
+    </div>
+  </div>
+</nav>

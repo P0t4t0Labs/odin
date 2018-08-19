@@ -1,0 +1,27 @@
+<div class="container">
+
+  <script type="text/ng-template" id="clientPageTableHeader">
+    <tr>
+      <th>CUID</th>
+      <th>Key</th>
+      <th>First seen</th>
+      <th>Last seen</th>
+      <th>Shell</th>
+    </tr>
+  </script>
+
+  <table class="table is-striped is-hoverable is-fullwidth">
+    <thead ng-include="'clientPageTableHeader'"></thead>
+    <tfoot ng-include="'clientPageTableHeader'"></tfoot>
+    <tbody ng-repeat="client in $ctrl.clients">
+      <tr>
+        <th>{{client.cuid}}</th>
+        <th>{{client.key}}</th>
+        <th>{{client.first_seen}}</th>
+        <th>{{client.last_seen}}</th>
+        <th>{{client.shell_hint}}</th>
+      </tr>
+    </tbody>
+  </table>
+
+</div>
