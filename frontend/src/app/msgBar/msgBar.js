@@ -15,10 +15,10 @@ function MsgBarService($q, $timeout) {
   this.info = this.add.bind(this, 'info');
   this.success = this.add.bind(this, 'success');
   this.warning = this.add.bind(this, 'warning');
-  this.danger = this.add.bind(this, 'danger');
+  this.danger = this.error = this.add.bind(this, 'danger');
 
   // DEBUG ONLY
-  this.info('this should go away', 1000);
+  this.success('Welcome!', 1000);
 }
 MsgBarService.TIMEOUT = 5000;
 

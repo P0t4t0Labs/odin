@@ -1,31 +1,35 @@
 import angular from 'angular';
 
+import api from '../services/api'
+
 const MODULE_NAME = 'clientsPage';
 
-angular.module(MODULE_NAME, [])
+angular.module(MODULE_NAME, [api])
   .component(MODULE_NAME, {
     template: require('./page.html'),
     controller: PageCtrl
   });
 
-function PageCtrl($http) {
+function PageCtrl(api) {
   this._i = {
-    $http
+    api
   };
 }
 
 PageCtrl.prototype.$onInit = function() {
-  // TODO: loading and error handling
-  // TODO: api that auto-barfs to error handler
+  this.refreshClients();
+};
+
+PageCtrl.prototype.refreshClients = function() {
   var self = this;
-  this._i.$http.get('/api/game/commander')
+  self.loading = true;
+  this._i.api.get('/api/game/commander')
     .then(function(resp) {
       self.clients = resp.data;
     })
-    .catch(function(e) {
-      // God this is a shit way to do it lol
-      alert(e);
-    })
+    .finally(function() {
+      self.loading = false;
+    });
 };
 
 export default MODULE_NAME;

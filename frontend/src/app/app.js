@@ -7,6 +7,7 @@ import '../style/app.scss';
 import mainNav from './navigation/mainNav'
 import clientsMod from './clients/module'
 import msgBar from './msgBar/msgBar'
+import api from './services/api'
 
 const MODULE_NAME = 'odin';
 
@@ -73,11 +74,12 @@ function run($rootScope, $transitions, $stateRegistry, $log) {
 }
 
 angular.module(MODULE_NAME, [
-    uiRouter,
-    ngMessages,
-    mainNav,
+    api,
     clientsMod,
+    mainNav,
     msgBar,
+    ngMessages,
+    uiRouter,
   ])
   .config(config)
   .run(run);
