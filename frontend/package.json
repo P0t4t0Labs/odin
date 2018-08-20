@@ -13,7 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "angular": "^1.6.0"
+    "angular": "^1.7.2"
   },
   "devDependencies": {
     "@fortawesome/fontawesome-free": "^5.2.0",

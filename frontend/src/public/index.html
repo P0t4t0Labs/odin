@@ -5,10 +5,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title ng-bind="$root.pageTitle || 'Odin'">Odin</title>
+  <title ng-bind-template="Odin{{$root.pageTitle ? ': ' + $root.pageTitle : ''}}">
+    Odin
+  </title>
 </head>
 <body class="has-navbar-fixed-top">
   <main-nav></main-nav>
+  <msg-bar></msg-bar>
 
   <ui-view></ui-view>
 </body>

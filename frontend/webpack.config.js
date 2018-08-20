@@ -89,7 +89,7 @@ module.exports = function makeWebpackConfig() {
    * This handles most of the magic responsible for converting modules
    */
 
-  // Initialize module
+    // Initialize module
   config.module = {
     rules: [{
       // JS LOADER
@@ -124,7 +124,19 @@ module.exports = function makeWebpackConfig() {
       test: /\.s[ca]ss$/,
       use: isTest ? 'style-loader' : extractSass.extract({
         fallback: 'style-loader',
-        use: ['css-loader', 'postcss-loader', 'sass-loader']
+        use: [{
+          loader: 'css-loader'
+        }, {
+          loader: 'postcss-loader'
+        }, {
+          loader: 'sass-loader',
+          options: {
+            data: '@import "variables";',
+            includePaths: [
+              path.resolve(__dirname, "./src/style")
+            ]
+          }
+        }]
       })
     }, {
       // FONT LOADER
@@ -180,8 +192,8 @@ module.exports = function makeWebpackConfig() {
    * Reference: https://github.com/postcss/autoprefixer-core
    * Add vendor prefixes to your css
    */
-   // NOTE: This is now handled in the `postcss.config.js`
-   //       webpack2 has some issues, making the config file necessary
+  // NOTE: This is now handled in the `postcss.config.js`
+  //       webpack2 has some issues, making the config file necessary
 
   /**
    * Plugins
@@ -200,7 +212,7 @@ module.exports = function makeWebpackConfig() {
   ];
 
   config.externals = [
-    {'window':'window'}
+    {'window': 'window'}
   ];
 
   // Skip rendering index.html in test mode

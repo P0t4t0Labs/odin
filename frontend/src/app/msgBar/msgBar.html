@@ -1,0 +1,11 @@
+<ul class="msg-bar">
+
+  <li ng-repeat="msg in $ctrl.msgBar.messages"
+      ng-class="msg.level">
+    <div class="container">
+      <button class="delete" ng-click="msg.remove()"></button>
+      {{::msg.message}}
+    </div>
+  </li>
+
+</ul>
